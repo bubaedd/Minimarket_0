@@ -257,7 +257,7 @@ public class Registro_empleado extends javax.swing.JFrame {
         String[]datos=new String[9];
        try {
            Statement st=cc.createStatement();
-           ResultSet rs= st.executeQuery("select id_empleado,nombres,apellidos,rut,telefono,correo,nombre_cargo from tipo_empleado, usuario , empleado where id_type = id_tipo");
+           ResultSet rs= st.executeQuery("select id_empleado, nombres,apellidos,rut,telefono,correo,nombre_cargo from empleado inner join usuario on fk_usuario=id_usuario inner join tipo_empleado on id_type=id_tipo");
             
             while(rs.next())
             {
