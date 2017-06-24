@@ -33,7 +33,7 @@ public class login extends javax.swing.JFrame {
     String pas=pass;
     
     String tipoUsuario="";
-    String sql="select * from usuario inner join tipo_empleado on id_tipo_empleado = fk_id_tipo where usuario ='"+usu+"'  and contraseña='"+pas+"'";
+    String sql="select * from usuario inner join tipo_empleado on id_type = id_tipo where usuario ='"+usu+"'  and contraseña='"+pas+"'";
     
     
     try{
@@ -41,7 +41,7 @@ public class login extends javax.swing.JFrame {
          ResultSet rs= st.executeQuery(sql);
          
          while(rs.next()){
-             tipoUsuario=rs.getString("nombre_tipo");
+             tipoUsuario=rs.getString("nombre_cargo");
          }
          
          if(tipoUsuario.equals("administrador") || tipoUsuario.equals("jefe"))

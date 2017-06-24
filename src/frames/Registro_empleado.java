@@ -4,6 +4,15 @@
  * and open the template in the editor.
  */
 package frames;
+import funciones.conectar;
+import funciones.f_empleado;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,22 +36,248 @@ public class Registro_empleado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        t_mostrar = new javax.swing.JTable();
+        btn_registrar = new javax.swing.JButton();
+        btn_borrar = new javax.swing.JButton();
+        btn_volver = new javax.swing.JButton();
+        text_nombre = new javax.swing.JTextField();
+        text_apellido = new javax.swing.JTextField();
+        txt_rut = new javax.swing.JTextField();
+        txt_telefono = new javax.swing.JTextField();
+        txt_correo = new javax.swing.JTextField();
+        txt_usu = new javax.swing.JTextField();
+        txt_pass = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txt_cargo = new javax.swing.JTextField();
+        btn_mostrar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("nombres:");
+
+        jLabel2.setText("apellidos:");
+
+        jLabel3.setText("rut:");
+
+        jLabel4.setText("telefono:");
+
+        jLabel5.setText("correo:");
+
+        jLabel6.setText("usuario:");
+
+        jLabel7.setText("contraseña:");
+
+        t_mostrar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(t_mostrar);
+
+        btn_registrar.setText("Registrar");
+        btn_registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registrarActionPerformed(evt);
+            }
+        });
+
+        btn_borrar.setText("Borrar");
+
+        btn_volver.setText("Volver");
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
+
+        txt_telefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_telefonoActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("cargo:");
+
+        btn_mostrar.setText("mostrar");
+        btn_mostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_mostrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_telefono))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(text_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(text_apellido)
+                                    .addComponent(txt_rut))))
+                        .addGap(61, 61, 61)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_pass)
+                                    .addComponent(txt_usu)
+                                    .addComponent(txt_cargo, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))))
+                        .addGap(0, 49, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_registrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_borrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_mostrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_volver)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5)
+                    .addComponent(text_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6)
+                    .addComponent(text_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_usu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel7)
+                    .addComponent(txt_rut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(txt_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_registrar)
+                    .addComponent(btn_borrar)
+                    .addComponent(btn_volver)
+                    .addComponent(btn_mostrar))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txt_telefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_telefonoActionPerformed
+
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        dispose();
+        menu_adminjefe obj = new menu_adminjefe();
+        obj.setVisible(true);
+    }//GEN-LAST:event_btn_volverActionPerformed
+
+    private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
+        f_empleado em = new f_empleado();
+        String nombre=this.text_nombre.getText();
+        String apellido=this.text_apellido.getText();
+        String rut=this.txt_rut.getText();
+        String telefono=this.txt_telefono.getText();
+        String correo = this.txt_correo.getText();
+        String usuario = this.txt_usu.getText();
+        String contrasenia= this.txt_pass.getText();
+        String cargo = this.txt_cargo.getText();
+        
+        em.registrar_empleado(nombre, apellido, rut, telefono, correo, usuario, contrasenia, cargo);
+        
+    }//GEN-LAST:event_btn_registrarActionPerformed
+
+    private void btn_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrarActionPerformed
+        this.mostrardatos();
+    }//GEN-LAST:event_btn_mostrarActionPerformed
+
+     public void mostrardatos()
+    {
+        DefaultTableModel modelo= new DefaultTableModel();
+        modelo.addColumn("id_empleado");
+        modelo.addColumn("nombre");
+        modelo.addColumn("apellido");
+        modelo.addColumn("rut");
+        modelo.addColumn("correo");
+        modelo.addColumn("telefono");
+        modelo.addColumn("tipo");
+  
+        t_mostrar.setModel(modelo);
+        String[]datos=new String[9];
+       try {
+           Statement st=cc.createStatement();
+           ResultSet rs= st.executeQuery("select id_empleado,nombres,apellidos,rut,telefono,correo,nombre_cargo from tipo_empleado, usuario , empleado where id_type = id_tipo");
+            
+            while(rs.next())
+            {
+                datos[0]=rs.getString(1);
+                datos[1]=rs.getString(2);
+                datos[2]=rs.getString(3);
+                datos[3]=rs.getString(4);
+                datos[4]=rs.getString(5);
+                datos[5]=rs.getString(6);
+                datos[6]=rs.getString(7);
+               
+                
+                modelo.addRow(datos);
+                
+            }
+        } catch (SQLException ex) {
+            
+        }    
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -79,5 +314,29 @@ public class Registro_empleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_borrar;
+    private javax.swing.JButton btn_mostrar;
+    private javax.swing.JButton btn_registrar;
+    private javax.swing.JButton btn_volver;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable t_mostrar;
+    private javax.swing.JTextField text_apellido;
+    private javax.swing.JTextField text_nombre;
+    private javax.swing.JTextField txt_cargo;
+    private javax.swing.JTextField txt_correo;
+    private javax.swing.JTextField txt_pass;
+    private javax.swing.JTextField txt_rut;
+    private javax.swing.JTextField txt_telefono;
+    private javax.swing.JTextField txt_usu;
     // End of variables declaration//GEN-END:variables
+conectar cn= new conectar();
+Connection cc= cn.conexion();
 }

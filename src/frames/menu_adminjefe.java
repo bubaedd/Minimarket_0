@@ -16,6 +16,9 @@ public class menu_adminjefe extends javax.swing.JFrame {
      */
     public menu_adminjefe() {
         initComponents();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(menu_adminjefe.DO_NOTHING_ON_CLOSE);
+        this.setTitle("MENU");
     }
 
     /**
@@ -39,6 +42,11 @@ public class menu_adminjefe extends javax.swing.JFrame {
         jMenu1.setText("Registros");
 
         R_empleados.setText("Empleados");
+        R_empleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                R_empleadosActionPerformed(evt);
+            }
+        });
         jMenu1.add(R_empleados);
 
         jMenuBar1.add(jMenu1);
@@ -67,6 +75,12 @@ public class menu_adminjefe extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void R_empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_R_empleadosActionPerformed
+        dispose();
+        Registro_empleado ob = new Registro_empleado();
+        ob.setVisible(true);
+    }//GEN-LAST:event_R_empleadosActionPerformed
 
     /**
      * @param args the command line arguments
