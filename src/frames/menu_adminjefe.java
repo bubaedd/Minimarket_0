@@ -30,6 +30,7 @@ public class menu_adminjefe extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btn_cerrarsesion = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         R_empleados = new javax.swing.JMenuItem();
@@ -38,6 +39,13 @@ public class menu_adminjefe extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btn_cerrarsesion.setText("cerrar sesion");
+        btn_cerrarsesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cerrarsesionActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Registros");
 
@@ -66,11 +74,15 @@ public class menu_adminjefe extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btn_cerrarsesion)
+                .addGap(0, 305, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 256, Short.MAX_VALUE)
+                .addComponent(btn_cerrarsesion))
         );
 
         pack();
@@ -81,6 +93,12 @@ public class menu_adminjefe extends javax.swing.JFrame {
         Registro_empleado ob = new Registro_empleado();
         ob.setVisible(true);
     }//GEN-LAST:event_R_empleadosActionPerformed
+
+    private void btn_cerrarsesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarsesionActionPerformed
+        dispose();
+        login obj = new login();
+        obj.setVisible(true);
+    }//GEN-LAST:event_btn_cerrarsesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,6 +137,7 @@ public class menu_adminjefe extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem R_empleados;
+    private javax.swing.JButton btn_cerrarsesion;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,6 +26,13 @@ public class Registro_empleado extends javax.swing.JFrame {
      */
     public Registro_empleado() {
         initComponents();
+        this.mostrardatos();
+        this.llenar_cargos();
+        this.text_nombre.requestFocus();
+          setLocationRelativeTo(null);
+          setDefaultCloseOperation(Registro_empleado.DO_NOTHING_ON_CLOSE);
+          this.limpiar();
+        
     }
 
     /**
@@ -56,10 +64,11 @@ public class Registro_empleado extends javax.swing.JFrame {
         txt_usu = new javax.swing.JTextField();
         txt_pass = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txt_cargo = new javax.swing.JTextField();
-        btn_mostrar = new javax.swing.JButton();
+        btn_registrar_nuevo_cargo = new javax.swing.JButton();
+        combo_cargos = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Registro empleado");
 
         jLabel1.setText("nombres:");
 
@@ -96,6 +105,11 @@ public class Registro_empleado extends javax.swing.JFrame {
         });
 
         btn_borrar.setText("Borrar");
+        btn_borrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_borrarActionPerformed(evt);
+            }
+        });
 
         btn_volver.setText("Volver");
         btn_volver.addActionListener(new java.awt.event.ActionListener() {
@@ -112,12 +126,14 @@ public class Registro_empleado extends javax.swing.JFrame {
 
         jLabel8.setText("cargo:");
 
-        btn_mostrar.setText("mostrar");
-        btn_mostrar.addActionListener(new java.awt.event.ActionListener() {
+        btn_registrar_nuevo_cargo.setText("Registrar nuevo cargo");
+        btn_registrar_nuevo_cargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_mostrarActionPerformed(evt);
+                btn_registrar_nuevo_cargoActionPerformed(evt);
             }
         });
+
+        combo_cargos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cargos" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,16 +174,16 @@ public class Registro_empleado extends javax.swing.JFrame {
                                     .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_pass)
+                                    .addComponent(txt_pass, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                                     .addComponent(txt_usu)
-                                    .addComponent(txt_cargo, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))))
+                                    .addComponent(combo_cargos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 49, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btn_registrar)
                         .addGap(18, 18, 18)
                         .addComponent(btn_borrar)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_mostrar)
+                        .addComponent(btn_registrar_nuevo_cargo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_volver)))
                 .addContainerGap())
@@ -198,7 +214,7 @@ public class Registro_empleado extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(txt_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combo_cargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
@@ -206,7 +222,7 @@ public class Registro_empleado extends javax.swing.JFrame {
                     .addComponent(btn_registrar)
                     .addComponent(btn_borrar)
                     .addComponent(btn_volver)
-                    .addComponent(btn_mostrar))
+                    .addComponent(btn_registrar_nuevo_cargo))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -232,15 +248,60 @@ public class Registro_empleado extends javax.swing.JFrame {
         String correo = this.txt_correo.getText();
         String usuario = this.txt_usu.getText();
         String contrasenia= this.txt_pass.getText();
-        String cargo = this.txt_cargo.getText();
+        String cargo= this.combo_cargos.getSelectedItem().toString();
         
-        em.registrar_empleado(nombre, apellido, rut, telefono, correo, usuario, contrasenia, cargo);
+        if(nombre.equals(""))
+        {
+            JOptionPane.showMessageDialog(null,"falta nombre","ERROR", JOptionPane.WARNING_MESSAGE);
+            this.text_nombre.requestFocus();
+        }
+        else if(apellido.equals("")){
+             JOptionPane.showMessageDialog(null,"falta apellido","ERROR", JOptionPane.WARNING_MESSAGE);
+             this.text_apellido.requestFocus();
+        }
+        else if(rut.equals("")){
+             JOptionPane.showMessageDialog(null,"falta rut","ERROR", JOptionPane.WARNING_MESSAGE);
+             this.txt_rut.requestFocus();
+        }
+        else if(telefono.equals("")){
+             JOptionPane.showMessageDialog(null,"falta telefono","ERROR", JOptionPane.WARNING_MESSAGE);
+             this.txt_telefono.requestFocus();
+        }
+        else if(correo.equals("")){
+             JOptionPane.showMessageDialog(null,"falta correo","ERROR", JOptionPane.WARNING_MESSAGE);
+             this.txt_correo.requestFocus();
+        }
+        else if(usuario.equals("")){
+            JOptionPane.showMessageDialog(null,"falta usuario","ERROR", JOptionPane.WARNING_MESSAGE);
+            this.txt_usu.requestFocus();
+        }
+        else if(contrasenia.equals("")){
+            JOptionPane.showMessageDialog(null,"falta contraseña","ERROR", JOptionPane.WARNING_MESSAGE);
+            this.txt_pass.requestFocus();
+        }
+        else if(cargo.equals("")){
+         JOptionPane.showMessageDialog(null,"falta cargo","ERROR", JOptionPane.WARNING_MESSAGE);
+         this.combo_cargos.requestFocus();
+        }
+        else{
+        em.registrar_empleado(nombre, apellido, rut, telefono, correo, usuario, contrasenia,cargo);
+        JOptionPane.showMessageDialog(null, cargo);
+        this.mostrardatos();
+        this.limpiar();
+        }
         
     }//GEN-LAST:event_btn_registrarActionPerformed
 
-    private void btn_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrarActionPerformed
-        this.mostrardatos();
-    }//GEN-LAST:event_btn_mostrarActionPerformed
+    
+    private void btn_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrarActionPerformed
+       
+    }//GEN-LAST:event_btn_borrarActionPerformed
+
+    private void btn_registrar_nuevo_cargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrar_nuevo_cargoActionPerformed
+        dispose();
+        agregar_cargo obj = new agregar_cargo();
+        obj.setVisible(true);
+    }//GEN-LAST:event_btn_registrar_nuevo_cargoActionPerformed
 
      public void mostrardatos()
     {
@@ -257,7 +318,7 @@ public class Registro_empleado extends javax.swing.JFrame {
         String[]datos=new String[9];
        try {
            Statement st=cc.createStatement();
-           ResultSet rs= st.executeQuery("select id_empleado, nombres,apellidos,rut,telefono,correo,nombre_cargo from empleado inner join usuario on fk_usuario=id_usuario inner join tipo_empleado on id_type=id_tipo");
+           ResultSet rs= st.executeQuery("select * from empleado_cargo");
             
             while(rs.next())
             {
@@ -277,6 +338,35 @@ public class Registro_empleado extends javax.swing.JFrame {
             
         }    
     }
+     
+     public void llenar_cargos(){
+         this.combo_cargos.removeAllItems();
+         
+         String sql="select nombre_cargo from tipo_empleado";
+         try{
+             Statement psr = cc.createStatement();
+             ResultSet ps= psr.executeQuery(sql);
+             while(ps.next())
+             {
+                 this.combo_cargos.addItem(ps.getString("nombre_cargo"));
+             }
+         }
+          catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+     }
+     
+    public void limpiar(){
+         this.txt_correo.setText("");
+         this.text_nombre.setText("");
+         this.text_apellido.setText("");
+         this.txt_pass.setText("");
+         this.txt_rut.setText("");
+         this.txt_telefono.setText("");
+         this.txt_usu.setText("");
+     }
     
     /**
      * @param args the command line arguments
@@ -315,9 +405,10 @@ public class Registro_empleado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_borrar;
-    private javax.swing.JButton btn_mostrar;
     private javax.swing.JButton btn_registrar;
+    private javax.swing.JButton btn_registrar_nuevo_cargo;
     private javax.swing.JButton btn_volver;
+    private javax.swing.JComboBox<String> combo_cargos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -330,7 +421,6 @@ public class Registro_empleado extends javax.swing.JFrame {
     private javax.swing.JTable t_mostrar;
     private javax.swing.JTextField text_apellido;
     private javax.swing.JTextField text_nombre;
-    private javax.swing.JTextField txt_cargo;
     private javax.swing.JTextField txt_correo;
     private javax.swing.JTextField txt_pass;
     private javax.swing.JTextField txt_rut;

@@ -20,8 +20,8 @@ public class f_empleado {
     
      public void registrar_empleado(String nombre, String apellido, String rut, String telefono,String correo,String usuario,String contrasenia,String cargo){
            
-           this.registrar_cargo(cargo);
-           this.registrar_usuario(usuario, contrasenia);
+          
+           this.registrar_usuario(usuario, contrasenia,cargo);
            this.registrar_empleado(nombre, apellido, rut, correo, telefono);
             
         
@@ -43,13 +43,14 @@ public class f_empleado {
           
      }
      
-     public void registrar_usuario(String usu , String pass){
-         String sql_2="call ingresar_usuario(?,?)";
+     public void registrar_usuario(String usu , String pass , String cargo){
+         String sql_2="call ingresar_usuario(?,?,?)";
          
          try{
              CallableStatement p= cn.prepareCall(sql_2);
              p.setString(1, usu);
              p.setString(2, pass);
+             p.setString(3, cargo);
              p.executeQuery();
              
          }

@@ -63,7 +63,7 @@ public class login extends javax.swing.JFrame {
              dispose();
          }
           if(!tipoUsuario.equals("empleado") && !tipoUsuario.equals("jefe")&& !tipoUsuario.equals("administrador")){
-            JOptionPane.showMessageDialog(this, "Usuario o contraseñano encontrado");
+            JOptionPane.showMessageDialog(this, "Usuario o contraseñano no encontrado");
     }
          
          
