@@ -77,15 +77,8 @@ public class f_empleado {
              pst.setString(5, correo);
           
              pst.executeQuery();
-           
-           
              
      
-            
-              
-             
-            
-        
             
         }
         catch(SQLException e)
