@@ -239,6 +239,23 @@ public class Registro_empleado extends javax.swing.JFrame {
         obj.setVisible(true);
     }//GEN-LAST:event_btn_volverActionPerformed
 
+      public String tomar_id_usuario(String id){
+        String a="";
+        String sql="select fk_usuario from empleado where id_empleado ='"+id+"'";
+        try{
+            Statement ps= cc.createStatement();
+            ResultSet psr= ps.executeQuery(sql);
+            while(psr.next()){
+                a=psr.getString(1);
+            }
+            
+        }
+        catch(SQLException ex){
+            
+        }
+        
+        return  a;
+    }
     private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
         f_empleado em = new f_empleado();
         String nombre=this.text_nombre.getText();
@@ -285,7 +302,7 @@ public class Registro_empleado extends javax.swing.JFrame {
         }
         else{
         em.registrar_empleado(nombre, apellido, rut, telefono, correo, usuario, contrasenia,cargo);
-        JOptionPane.showMessageDialog(null, cargo);
+        
         this.mostrardatos();
         this.limpiar();
         }
@@ -294,7 +311,22 @@ public class Registro_empleado extends javax.swing.JFrame {
 
     
     private void btn_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrarActionPerformed
-       
+        int select = this.t_mostrar.getSelectedRow();
+        String id = this.t_mostrar.getValueAt(select, 0).toString();
+        String a="";
+        if(select == -1){
+            JOptionPane.showConfirmDialog(null, "seleccione una casilla","ERROR",JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            f_empleado obj = new f_empleado();
+            a=this.tomar_id_usuario(id);
+            obj.eliminar_empleado(id);
+            obj.eliminar_usuario(a);
+            JOptionPane.showMessageDialog(null, "elemento borrado");
+            
+            this.mostrardatos();
+        }
+        
     }//GEN-LAST:event_btn_borrarActionPerformed
 
     private void btn_registrar_nuevo_cargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrar_nuevo_cargoActionPerformed

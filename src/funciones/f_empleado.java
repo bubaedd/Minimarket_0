@@ -7,7 +7,11 @@ package funciones;
 import funciones.conectar;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +21,37 @@ import javax.swing.JOptionPane;
 public class f_empleado {
     conectar cc = new conectar();
     Connection cn= cc.conexion();
+    
+  
+    
+    
+    public void eliminar_empleado (String a) {
+        String sql="call eliminar_empleado('"+a+"')";
+        try{
+        CallableStatement pst= cn.prepareCall(sql);
+        pst.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(f_empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    public void eliminar_usuario(String a)
+    {
+        
+        
+        
+        String sql="call eliminar_usuario('"+a+"')";
+        
+        try{
+            CallableStatement pst = cn.prepareCall(sql);
+            pst.executeQuery();
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(f_empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        
+    }
     
      public void registrar_empleado(String nombre, String apellido, String rut, String telefono,String correo,String usuario,String contrasenia,String cargo){
            
@@ -92,6 +127,8 @@ public class f_empleado {
             
         }
      }
+    
+  
 }
      
 
