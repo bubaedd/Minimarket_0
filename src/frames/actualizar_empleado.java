@@ -4,7 +4,14 @@
  * and open the template in the editor.
  */
 package frames;
-
+import funciones.conectar;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.StringTokenizer;
+import java.util.Vector;
+import javax.swing.JOptionPane;
 /**
  *
  * @author buba
@@ -16,6 +23,9 @@ public class actualizar_empleado extends javax.swing.JFrame {
      */
     public actualizar_empleado() {
         initComponents();
+        this.llenar_combo_nombre();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(Registro_empleado.DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -38,6 +48,9 @@ public class actualizar_empleado extends javax.swing.JFrame {
         txt_rut = new javax.swing.JTextField();
         txt_telefono = new javax.swing.JTextField();
         combo_nombres = new javax.swing.JComboBox<>();
+        btn_selecionar = new javax.swing.JButton();
+        btn_actualizar = new javax.swing.JButton();
+        btn_volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,6 +70,27 @@ public class actualizar_empleado extends javax.swing.JFrame {
             }
         });
 
+        btn_selecionar.setText("seleccionar empleado");
+        btn_selecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_selecionarActionPerformed(evt);
+            }
+        });
+
+        btn_actualizar.setText("actualizar");
+        btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarActionPerformed(evt);
+            }
+        });
+
+        btn_volver.setText("volver");
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -64,28 +98,38 @@ public class actualizar_empleado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_rut, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                            .addComponent(txt_telefono)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_rut, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                                    .addComponent(txt_telefono)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txt_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btn_selecionar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btn_actualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(combo_nombres, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(56, 56, 56))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txt_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(combo_nombres, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(56, 56, 56))
+                        .addComponent(btn_volver)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,7 +151,13 @@ public class actualizar_empleado extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txt_correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(combo_nombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_selecionar)
+                    .addComponent(btn_actualizar))
+                .addGap(18, 18, 18)
+                .addComponent(btn_volver)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -117,9 +167,96 @@ public class actualizar_empleado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_rutActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btn_selecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selecionarActionPerformed
+        String a = this.combo_nombres.getSelectedItem().toString();
+        Vector< String > b = this.separar(a);
+        String nombre = b.elementAt(0)+" "+b.elementAt(1);
+        String apellido =b.elementAt(2)+" "+b.elementAt(3) ;
+        String sql= "select nombres,apellidos,rut,telefono,correo from empleado where nombres='"+nombre+"' and apellidos ='"+apellido+"'";
+        String n="",c="",email="",rut="",phone="";
+       
+        try{
+            Statement ps = cn.createStatement();
+            ResultSet psr = ps.executeQuery(sql);
+            while(psr.next())
+            {
+                n=psr.getString(1);
+                c=psr.getString(2);
+                rut= psr.getString(3);
+                phone=psr.getString(4);
+                email=psr.getString(5);
+            }
+            
+            this.txt_nombre.setText(n);
+            this.txt_apellidos.setText(c);
+            this.txt_rut.setText(rut);
+            this.txt_telefono.setText(phone);
+            this.txt_correo.setText(email);
+        }
+        catch(SQLException e){
+            JOptionPane.showConfirmDialog(null, e);
+        }
+    }//GEN-LAST:event_btn_selecionarActionPerformed
+
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
+        String a = this.combo_nombres.getSelectedItem().toString();
+        Vector< String > b = this.separar(a);
+        String nombre = b.elementAt(0)+" "+b.elementAt(1);
+        String apellido =b.elementAt(2)+" "+b.elementAt(3) ;
+        String n=this.txt_nombre.getText();
+        String ap=this.txt_apellidos.getText();
+        String rut=this.txt_rut.getText();
+        String telef=this.txt_telefono.getText();
+        String correo=this.txt_correo.getText();
+        String sql ="update empleado set nombres='"+n+"', apellidos='"+ap+"' , rut='"+rut+"' , telefono='"+telef+"' , correo='"+correo+"' where nombres='"+nombre+"' and apellidos='"+apellido+"'";
+        try{
+            Statement ps= cn.createStatement();
+            ps.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "actualizacion a empleado realizada");
+        }
+        catch(SQLException ex){
+            
+        }
+    }//GEN-LAST:event_btn_actualizarActionPerformed
+
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        dispose();
+        Registro_empleado obj= new Registro_empleado();
+        obj.setVisible(true);
+    }//GEN-LAST:event_btn_volverActionPerformed
+
+    public void llenar_combo_nombre(){
+        String sql = "select concat(nombres,' ',apellidos) as nombre  from empleado ";
+        try
+        {
+            Statement ps = cn.createStatement();
+            ResultSet psr = ps.executeQuery(sql);
+            while(psr.next())
+            {
+                this.combo_nombres.addItem(psr.getString(1));
+            }
+            
+        }
+        catch(SQLException ex){
+            
+        }
+        
+    }
+    Vector<String> separar(String nombre)
+    {
+        Vector <String> cosa = new Vector<String>();
+        StringTokenizer tokens = new StringTokenizer(nombre);
+        while(tokens.hasMoreTokens())
+        {
+            cosa.addElement(tokens.nextToken());
+        }
+        
+        
+        return cosa;
+    }
+    
+ 
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -153,6 +290,9 @@ public class actualizar_empleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_actualizar;
+    private javax.swing.JButton btn_selecionar;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JComboBox<String> combo_nombres;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -165,4 +305,6 @@ public class actualizar_empleado extends javax.swing.JFrame {
     private javax.swing.JTextField txt_rut;
     private javax.swing.JTextField txt_telefono;
     // End of variables declaration//GEN-END:variables
+conectar cc = new conectar();
+Connection cn = cc.conexion();
 }

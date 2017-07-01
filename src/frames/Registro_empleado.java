@@ -348,7 +348,9 @@ public class Registro_empleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_registrar_nuevo_cargoActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-        
+        dispose();
+        actualizar_empleado obj= new actualizar_empleado();
+        obj.setVisible(true);
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
      public void mostrardatos()
